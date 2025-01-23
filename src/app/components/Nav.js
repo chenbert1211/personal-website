@@ -3,9 +3,10 @@ import Link from "next/link";
 export default function Navbar(){
     return(
         <div className="Nav">
-            <p className="nav-left">
-                Bert
-            </p>
+            <h1 className="nav-left">
+                
+                Bert 
+            </h1>
             <div class="slash-line"></div>
             <div className="nav-right">
                 <ul>
