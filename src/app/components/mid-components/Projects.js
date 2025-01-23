@@ -1,6 +1,7 @@
 
 "use client"
 import React, { useState } from "react";
+import Image from "next/image";
 export default function Projects() {
     const projects = [
         {
@@ -66,19 +67,27 @@ export default function Projects() {
       <h1 className="title">PROJECTS</h1>
 
       <div className="project-slide">
-        <h2>{projects[currentIndex].title}</h2>
-        <p><strong>{projects[currentIndex].role}</strong> | {projects[currentIndex].date}</p>
+        <h2 className="project-name"><strong>{projects[currentIndex].title}</strong></h2>
+        <p className="proj-disc"><strong>{projects[currentIndex].role}</strong> | {projects[currentIndex].date}</p>
         
         {/* Links */}
-        <div className="project-links">
+        <div className="icon-container">
           {projects[currentIndex].links.demo && (
             <a href={projects[currentIndex].links.demo} target="_blank" rel="noopener noreferrer">
-              Demo
+              <Image src='/yt-logo.jpg'
+            className="icon-img"
+            alt = 'yt'
+            width={300}
+            height={300}/>
             </a>
           )}
           {projects[currentIndex].links.github && (
             <a href={projects[currentIndex].links.github} target="_blank" rel="noopener noreferrer">
-              GitHub
+              <Image src='/git-logo.png'
+            className="icon-img"
+            alt = 'github'
+            width={300}
+            height={300}/>
             </a>
           )}
         </div>
