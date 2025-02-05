@@ -17,6 +17,11 @@ export default function Projects() {
         "Led a team of four developers to create a real-estate intelligence platform, making property data easily accessible to everyday users.",
         "Implemented custom algorithms for property valuation, analyzing performance metrics to provide accurate appraisals.",
         "Utilized object-oriented programming to ensure maintainable, scalable code and improve overall system performance."
+      ],
+      images: [
+        "/filler.png",
+        "/filler2.png",
+        "/filler.png"
       ]
     },
     {
@@ -31,6 +36,11 @@ export default function Projects() {
         "Developed a collectible sneaker e-commerce platform using PostgreSQL, Express.js, RESTful APIs, and React/Redux.",
         "Collaborated with a team of four developers to design and implement key features.",
         "Led design of UI components and backend functions, ensuring a seamless and responsive user experience."
+      ],
+      images: [
+        "/placeholder1.jpg",
+        "/placeholder2.jpg",
+        "/placeholder3.jpg"
       ]
     },
     {
@@ -45,22 +55,43 @@ export default function Projects() {
         "Integrated multiple enemy intelligence and animation in regards of player movement.",
         "Created solely with HTML canvas and JavaScript.",
         "Implemented gravity, movement, actions, and animation to improve player enjoyment."
+      ],
+      images: [
+        "/placeholder1.jpg",
+        "/placeholder2.jpg",
+        "/placeholder3.jpg"
       ]
     }
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [imageIndex, setImageIndex] = useState(0);
+  
 
   const nextProject = () => {
     if (currentIndex < projects.length - 1) {
       setCurrentIndex(currentIndex + 1);
+      setImageIndex(0);
     }
   };
 
   const prevProject = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
+      setImageIndex(0);
     }
+  };
+  
+  const nextImage = () => {
+    const imagesArray = projects[currentIndex].images;
+    // Move to the next image, wrap to 0 if at the end
+    setImageIndex((prev) => (prev + 1) % imagesArray.length);
+  };
+
+  const prevImage = () => {
+    const imagesArray = projects[currentIndex].images;
+    // Move to the previous image, wrap to last if at the start
+    setImageIndex((prev) => (prev - 1 + imagesArray.length) % imagesArray.length);
   };
 
   return (
@@ -121,16 +152,35 @@ export default function Projects() {
 
       {/* Navigation Buttons */}
       <div className="navigation-buttons">
-        <a onClick={prevProject} disabled={currentIndex === 0} className="next">
+        <a onClick={prevProject} disabled={currentIndex === 0} className={`next ${currentIndex === 0 ? "disabled" : ""}`}>
           &#8249;
         </a>
         <a
           onClick={nextProject}
           disabled={currentIndex === projects.length - 1}
-          className="next"
+          className={`next ${currentIndex === projects.length - 1 ? "disabled" : ""}`}
         >
           &#8250;
         </a>
+
+                  {/* Right side: Image Slider */}
+        <div className="image-slider">
+          {/* Display current project image based on imageIndex */}
+          <div className="image-display">
+            <Image
+              src={projects[currentIndex].images[imageIndex]}
+              alt="Project Screenshot"
+              width={800}  // Adjust as needed
+              height={450} // Adjust as needed
+            />
+          </div>
+          {/* Image Slider Arrows */}
+          <div className="image-buttons">
+            <button onClick={prevImage}>&larr;</button>
+            <button onClick={nextImage}>&rarr;</button>
+          </div>
+        </div>
+
       </div>
     </div>
   );

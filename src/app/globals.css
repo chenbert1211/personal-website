@@ -85,9 +85,10 @@ body {
   /* width: 80%; */
   margin: auto;
   /* padding: 20px; */
-  height: 800px;
+  height: 96vh;
   background-color: #000;
   color: white;
+  position: relative;
 }
 
 .title-proj {
@@ -127,19 +128,19 @@ body {
 }
 
 .project-name {
-  font-size: 35px;
+  font-size: 2.2vw;
   margin-left: 6%;
   letter-spacing: 1px;
 }
 
 .proj-disc{
-  font-size: 23px;
+  font-size: 1.5vw;
   margin-left: 2.5%;
 }
 
 .proj-summary{
   width: 45%;
-  font-size: 18px;
+  font-size: 1vw;
   margin-bottom: 15px;
   margin-left: 3%;
 }
@@ -155,20 +156,20 @@ body {
   text-align: left;
   display: inline-block;
   margin-left: 20px;
-  font-size: 18px;
+  font-size: 1vw;
   margin-left: 3%;
 }
 
 .icon-container {
   position: absolute;
-  top: 920px; /* Adjust to move up/down */
-  right: 10px; /* Adjust to move left/right */
+  top: 7vh; /* Adjust to move up/down */
+  right: 15px; /* Adjust to move left/right */
   display: flex;
   gap: 10px; /* Space between icons */
 }
 
 .icon-img {
-  width: 40px; /* Adjust size */
+  width: 2.8vw; /* Adjust size */
   height: auto;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
@@ -184,6 +185,7 @@ body {
   align-items: center;
   width: 100%; /* Ensures full width */
   margin-top: 20px;
+  z-index: 1000
   
 }
 
@@ -193,9 +195,10 @@ body {
   border-radius: 50%;
   text-decoration: none;
   display: inline-block;
-  padding: 8px 23px;
+  padding: 1.8vh 1.5vw;
   transition: background 0.3s ease;
   /* width: 50px; */
+  cursor: pointer;
   
 }
 
@@ -204,10 +207,21 @@ body {
   color: black;
 }
 
-.next:disabled {
-  background: gray;
+.disabled {
+  background: rgb(255, 252, 252);
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+.image-slider {
+  position: absolute;      /* This is crucial for placing it anywhere */
+  top: 20vh;              /* Distance from the top of .projects-container */
+  right: 3vw;             /* Distance from the right edge of .projects-container */
+  border: 2px solid #ccc; /* Example of a border or styling */
+  background: #f9f9f9;    /* Example background */
+  border-radius: 5px;
+  width: 80vh;
+  height: 50vh;
 }
 
 /* ------------------------------------- */
@@ -239,44 +253,57 @@ body {
 
 }
 
-.nav-right {
-  margin-left: auto;
-  margin-right: 5%; 
-}
 
 .nav-right ul {
   /* list-style: none; */
   display: flex;
-  gap: 8rem; /* Adjust this value */
+  /* gap: 8rem; */
 }
 
-.nav-link {
-  /* font-size */
-  color: #000000;
+
+
+.nav-right {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  font: bold 1.0rem sans-serif;
+  text-transform: uppercase;
+  color: rgb(2, 2, 2);
+  margin-left: auto;
+}
+.nav-right .nav-link {
+  padding: 1 2.5em;
+  cursor: pointer;
   position: relative;
-  display: inline-block;
+  overflow: hidden;
+  transition: .3s;
+  padding-bottom: 5px;
 }
 
-.nav-link::after,
-.nav-link::before {
-  content: '';
+.nav-right .nav-link:hover {
+  color: #aeaeae;
+}
+.nav-right .nav-link:before {
+  content: "";
   position: absolute;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(to right, black, white);
-  bottom: -5px;
-  left: 0;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.4s ease-out;
+  inset: calc(100% - 4px) 0 0 0; /* 3px = the thickness */
+  background: #8e8987; /* the color */
+  scale: 0 1;
+  transition: .3s, translate 0s .3s;
 }
-
-.nav-link::before {
-  top: -5px;
-  transform-origin: left;
+.nav-right:hover .nav-link:before {
+  scale: .6;
 }
-
-.nav-link:hover::after,
-.nav-link:hover::before {
-  transform: scaleX(1);
+.nav-right .nav-link:hover:before {
+  translate: 0;
+  transition: .3s;
+}
+.nav-right:hover .nav-link:has(~ .nav-link:hover):before {
+  translate: 100% 0;
+  transition: .2s .2s,scale 0s .4s;
+}
+.nav-right:hover .nav-link:hover ~ .nav-link:before {
+  translate: -100% 0;
+  transition: .2s .2s,scale 0s .4s;
 }
