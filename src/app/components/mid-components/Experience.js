@@ -68,7 +68,7 @@ export default function Experience() {
       </div>
 
       {/* Navigation Buttons */}
-      <div className="navigation-buttons">
+      <div className="exp-buttons">
         <a onClick={prevExperience} disabled={currentIndex === 0} className="next">&#8249;</a>
         <a onClick={nextExperience} disabled={currentIndex === experiences.length - 1} className="next">&#8250;</a>
       </div>
