@@ -162,7 +162,7 @@ export default function Projects() {
         >
           &#8250;
         </a>
-
+        </div>
                   {/* Right side: Image Slider */}
         <div className="image-slider">
           {/* Display current project image based on imageIndex */}
@@ -179,7 +179,7 @@ export default function Projects() {
             <button onClick={prevImage}>&larr;</button>
             <button onClick={nextImage}>&rarr;</button>
           </div>
-        </div>
+        
 
       </div>
     </div>

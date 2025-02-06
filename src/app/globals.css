@@ -182,12 +182,13 @@ body {
 }
 
 .navigation-buttons {
+ position: absolute; /* Absolute position within the container */
+  bottom: 20px; /* Distance from the bottom of the container */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center horizontally */
   display: flex;
-  justify-content: space-between; /* Places buttons at opposite ends */
-  align-items: center;
-  width: 100%; /* Ensures full width */
-  margin-top: 20px;
-  z-index: 1000
+  gap: 90vw; /* Space between buttons */
+  z-index: 1000; 
   
 }
 
@@ -201,8 +202,8 @@ body {
   transition: background 0.3s ease;
   /* width: 50px; */
   cursor: pointer;
-  
 }
+
 
 .next:hover {
   background-color: #ddd;
@@ -228,6 +229,87 @@ body {
 
 /* ------------------------------------- */
 /* Exp section */
+
+
+.experience-container {
+  /* text-align: center; */
+  /* width: 80%; */
+  margin: auto;
+  /* padding: 20px; */
+  height: 96vh;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  position: relative;
+}
+
+.title-exp {
+  font-family: "Mokoto", sans-serif;
+  font-weight: normal;
+  /* margin-left: 15%; */
+  font-size: 2.5vw;
+  text-transform: uppercase;
+  letter-spacing: 7;
+  /* background-color: aqua; */
+}
+.exp-line {
+  display: flex;           /* So child elements can line up horizontally */
+  align-items: center; 
+  color: #000000;  
+}
+.exp-line::before{
+  content: "";                  /* We insert an empty element */
+  width: 20rem;                  /* Controls the length of the left line */
+  border-bottom: 6px solid #000000;  /* Look of the line (change color/thickness) */
+  /* margin: 0 2rem; */
+  margin-right: 2.5rem;
+  border-radius: 2;
+}
+
+.exp-line::after {
+  content: "";
+  flex: 1;                      /* Make the lines expand to fill available space */
+  border-bottom: 6px solid #000000; /* The horizontal line, adjust thickness/color */
+  margin-left: 2.5rem;              /* Space between line and text */
+  border-radius: 2;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.name-forExp {
+  font-size: 2.2vw;
+  margin-left: 6%;
+  letter-spacing: 1px;
+}
+
+.exp-disc{
+  font-size: 1.5vw;
+  margin-left: 2.5%;
+}
+
+.exp-summary{
+  width: 45%;
+  font-size: 1vw;
+  margin-bottom: 15px;
+  margin-left: 3%;
+}
+
+.experience-slide {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.exp-bullet{
+  width: 40%;
+  /* background-color: #0056b3; */
+  list-style-type: disc;
+  text-align: left;
+  display: inline-block;
+  margin-left: 20px;
+  font-size: 1vw;
+  margin-left: 3%;
+}
 
 /* ------------------------------------- */
 /* ------------------------------------- */

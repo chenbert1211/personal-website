@@ -5,30 +5,34 @@ import Image from 'next/image';
 export default function Experience() {
   const experiences = [
     {
-      title: "Ferbessen - Remote",
-      role: "Software Engineer",
-      date: "February 2022 - December 2023",
+      title: "Ferbessen",
+      role: "Software Engineer | Volunteer",
+      date: "February 2023 - January 2025",
+      summary: `Ferbessen is about growth, connection, and mastery. It’s the pursuit of finding someone who is a master of their craft, connecting with them, and learning from them as often as needed for as long as it takes. It’s about acquiring new skills, sharing your progress, and turning your dreams into reality by starting that side hustle you’ve always envisioned. Ferbessen embodies the journey of continuous improvement, collaboration, and the courage to take action toward your goals.`,
       description: [
         "Design and develop mobile apps for iOS/Android platforms, ensuring optimal performance and responsiveness.",
         "Collaborated with cross-functional teams to deliver high-quality mobile apps within tight deadlines.",
-        "Implemented user-friendly interfaces using modern design principles, enhancing user engagement and satisfaction."
+        "Implemented user-friendly interfaces using modern design principles, enhancing user engagement and satisfaction.",
+        "Leveraged modern technologies and frameworks to optimize app performance and deliver seamless user experiences."
       ]
     },
     {
-      title: "United States Marine Corps – Various Locations",
-      role: "Logistics Manager",
+      title: "United States Marine Corps",
+      role: "Supply Chain Manager",
       date: "September 2020 – August 2022",
+      summary: `As a Supply Chain Manager, I oversaw inventory control, supply chain operations, and lifecycle documentation while leading and mentoring my team. I ensured the supply chain operated efficiently, maintained accountability, and kept operations mission-ready. I provided expert recommendations to the Supply Officer and command leadership, leveraging my experience to optimize logistics and supply processes.`,
       description: [
         "Oversaw personnel and equipment requests, thoroughly analyzing and recording shipment transactions. Provided weekly readiness updates to the CEO, ensuring data-driven decision-making and operational efficiency.",
-        "Led a team of 15 personnel overseeing logistics operations for a department of 900 Marines, ensuring timely delivery of equipment and supplies.",
+        "Led a team of 50 personnel overseeing logistics operations for a department of 900 Marines, ensuring timely delivery of equipment and supplies.",
         "Provided weekly readiness briefings to executive leadership, delivering data-driven insights for strategic decisions.",
         "Maintained 100% property accountability, streamlining turn-in processes and reducing excess inventory."
       ]
     },
     {
-      title: "United States Marine Corps – Various Locations",
-      role: "Logistics Specialist",
+      title: "United States Marine Corps",
+      role: "Supply Chain Specialist",
       date: "September 2019 – August 2020",
+      summary: `As a Supply Chain Specialist, I managed and oversaw inventory control, whether manual or automated. I designed, planned, executed, and monitored supply chain activities to ensure supply aligned with demand, measured performance, and maintained accountability across inventory operations. I also handled critical documentation to track the lifecycle of capital assets—from acquisition to disposal—ensuring accuracy and completeness. Additionally, I advised the Supply Officer on all supply-related matters.`,
       description: [
         "Analyzed comprehensive logistics data—including availability, maintainability, reliability, and supply chain metrics—to streamline operations and optimize resource allocation.",
         "Analyzed and interpreted logistics data (availability, reliability, supply chain metrics) to enhance operational efficiency.",
@@ -54,12 +58,18 @@ export default function Experience() {
 
   return (
     <div className="experience-container">
-      <h1 className="title">EXPERIENCE</h1>
+      <div className='exp-line'>
+        <h1 className="title-exp">EXPERIENCE</h1>
+      </div>
 
       <div className="experience-slide">
-        <h2 className="experience-name"><strong>{experiences[currentIndex].title}</strong></h2>
+        <h2 className="name-forExp"><strong>{experiences[currentIndex].title}</strong></h2>
         <p className="exp-disc"><strong>{experiences[currentIndex].role}</strong> | {experiences[currentIndex].date}</p>
+        
+        {/* Summary Section */}
+        <p className="exp-summary">{experiences[currentIndex].summary}</p>
 
+        {/* Bullet Points for Description */}
         <ul className="exp-bullet">
           {experiences[currentIndex].description.map((point, index) => (
             <li key={index}>{point}</li>
