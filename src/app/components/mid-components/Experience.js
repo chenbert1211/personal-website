@@ -1,6 +1,6 @@
 'use client'
-import { useState } from 'react';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
 export default function Experience() {
   const experiences = [
@@ -42,19 +42,23 @@ export default function Experience() {
     }
   ];
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedExperience, setSelectedExperience] = useState(null);
 
-  const nextExperience = () => {
-    if (currentIndex < experiences.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
+  // Handle experience selection
+  const handleExperienceClick = (exp) => {
+    setSelectedExperience(exp);
   };
 
-  const prevExperience = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
+  // Reset to center after 30 seconds
+  useEffect(() => {
+    if (selectedExperience) {
+      const timeout = setTimeout(() => {
+        setSelectedExperience(null);
+      }, 30000);
+
+      return () => clearTimeout(timeout);
     }
-  };
+  }, [selectedExperience]);
 
   return (
     <div className="experience-container">
@@ -62,25 +66,41 @@ export default function Experience() {
         <h1 className="title-exp">EXPERIENCE</h1>
       </div>
 
-      <div className="experience-slide">
-        <h2 className="name-forExp"><strong>{experiences[currentIndex].title}</strong></h2>
-        <p className="exp-disc"><strong>{experiences[currentIndex].role}</strong> | {experiences[currentIndex].date}</p>
-        
-        {/* Summary Section */}
-        <p className="exp-summary">{experiences[currentIndex].summary}</p>
-
-        {/* Bullet Points for Description */}
-        <ul className="exp-bullet">
-          {experiences[currentIndex].description.map((point, index) => (
-            <li key={index}>{point}</li>
+      <div className="flex h-full">
+        {/* Experiences List */}
+        <div className={`options ${selectedExperience ? 'moveLeft' : ''}`}>
+          {experiences.map((exp, index) => (
+            <div
+              key={index}
+              className="option cursor-pointer"
+              onClick={() => handleExperienceClick(exp)}
+            >
+              <h2 className="text-xl font-bold">{exp.title}</h2>
+              <p className="text-sm">{exp.role}</p>
+              <p className="text-xs">{exp.date}</p>
+            </div>
           ))}
-        </ul>
-      </div>
+        </div>
 
-      {/* Navigation Buttons */}
-      <div className="exp-buttons">
-        <a onClick={prevExperience} disabled={currentIndex === 0} className="next">&#8249;</a>
-        <a onClick={nextExperience} disabled={currentIndex === experiences.length - 1} className="next">&#8250;</a>
+        {/* Experience Details */}
+        <div className={`content ${selectedExperience ? 'show' : ''}`}>
+          {selectedExperience && (
+            <div className="p-8">
+              <h2 className="name-forExp"><strong>{selectedExperience.title}</strong></h2>
+              <p className="exp-disc">
+                <strong>{selectedExperience.role}</strong> | {selectedExperience.date}
+              </p>
+              
+              <p className="exp-summary">{selectedExperience.summary}</p>
+              
+              <ul className="exp-bullet">
+                {selectedExperience.description.map((point, index) => (
+                  <li key={index}>{point}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
