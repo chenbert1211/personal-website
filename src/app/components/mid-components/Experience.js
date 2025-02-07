@@ -16,7 +16,7 @@ export default function Experience() {
       ]
     },
     {
-      title: "SCM | USMC",
+      title: "United States Marine Corps",
       role: "Supply Chain Manager",
       date: "September 2020 – August 2022",
       summary: `As a Supply Chain Manager, I oversaw inventory control, supply chain operations, and lifecycle documentation while leading and mentoring my team. I ensured the supply chain operated efficiently, maintained accountability, and kept operations mission-ready. I provided expert recommendations to the Supply Officer and command leadership, leveraging my experience to optimize logistics and supply processes.`,
@@ -28,7 +28,7 @@ export default function Experience() {
       ]
     },
     {
-      title: "SCS | USMC",
+      title: "United States Marine Corps",
       role: "Supply Chain Specialist",
       date: "September 2019 – August 2020",
       summary: `As a Supply Chain Specialist, I managed and oversaw inventory control, whether manual or automated. I designed, planned, executed, and monitored supply chain activities to ensure supply aligned with demand, measured performance, and maintained accountability across inventory operations. I also handled critical documentation to track the lifecycle of capital assets—from acquisition to disposal—ensuring accuracy and completeness. Additionally, I advised the Supply Officer on all supply-related matters.`,
@@ -65,14 +65,12 @@ export default function Experience() {
 
       {/* Experience Options (clickable buttons) */}
       <div className="exp-options">
-        {experiences.map((exp, idx) => {
+      {experiences.map((exp, idx) => {
   // Extract the years using a regex that matches four digits
   const years = exp.date.match(/\d{4}/g);
   const dateRange = years ? years.join('-') : exp.date;
 
   // Determine the button text based on the role.
-  // If the role is Supply Chain Manager or Specialist, show the abbreviations;
-  // Otherwise, use the title.
   const optionText =
     exp.role === "Supply Chain Manager"
       ? "SCM | USMC"
@@ -84,7 +82,7 @@ export default function Experience() {
     <button
       key={idx}
       onClick={() => setSelectedIndex(idx)}
-      className="exp-option"
+      className={`exp-option ${selectedIndex === idx ? 'selected' : ''}`}
     >
       <div className="option-text">{optionText}</div>
       <div className="option-date">{dateRange}</div>
@@ -113,3 +111,4 @@ export default function Experience() {
     </div>
   );
 }
+

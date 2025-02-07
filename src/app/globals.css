@@ -282,29 +282,80 @@ body {
 }
 
 .exp-option {
-  display: block;
-  margin: 8vh;
-  padding: 10px 7vw;
-  font-size: 1.8vw;
-  width: 100%;
-  cursor: pointer;
-  border-radius: 5px;
+  display: inline-flex;
+  flex-direction: column;           /* Stack content vertically */
+  align-items: center;              /* Center content horizontally */
+  justify-content: center;
+  margin: 8vh;                      /* Increase this value for wider spacing between buttons */
+  padding: 15px ;               /* Top/bottom padding: 10px; left/right: 16px */
+  width: 50%;
+  /* Remove fixed height so the button can grow to fit two lines */
+  background-color: #FCFCFD;
+  border: none;                     /* No border */
+  border-radius: 4px;               /* Rounded corners */
+  box-shadow: 
+    rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
+    #D6D6E7 0 -3px 0 inset;
+  box-sizing: border-box;
+  font-family: "JetBrains Mono", monospace;
+  line-height: 1;
+  overflow: hidden;
+  text-align: center;               /* Center the text inside the button */
+  text-decoration: none;
+  transition: background-color 0.3s, box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  color: #000;
+}
+
+/* Optional: ensure the inner divs display as block-level elements */
+.option-text{
+  font-size: 2vh;   
   font-weight: bold;
-  transition: background-color 0.3s;
+  padding-bottom: 3px;
+}
+.option-date {
+  font-size: 1.5vh;
+  display: block;
 }
 
-.option-date{
-  font-weight: normal;
-  font-size: 1vw;
+/* Focus state */
+.exp-option:focus {
+  box-shadow: 
+    #D6D6E7 0 0 0 1.5px inset,
+    rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
+    #D6D6E7 0 -3px 0 inset;
 }
 
+/* Hover state */
 .exp-option:hover {
-  background-color: #ddd;
+  box-shadow: 
+    rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
+    #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.exp-option.selected {
+  /* Pressed state styles */
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+/* Active (pressed) state */
+.exp-option:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
 }
 
 /* When an experience is selected, slide the options to the left */
 .experience-container.active .exp-options {
-  left: -5%;
+  left: 1%;
   transform: translateY(-50%);
 }
 
