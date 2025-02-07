@@ -9,6 +9,14 @@
   font-display: swap; /* optional but recommended for better performance */
 }
 
+@font-face {
+  font-family: "Game";
+  src: url("/fonts/GameFont.TTF") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* optional but recommended for better performance */
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -262,7 +270,7 @@ body {
 }
 
 .title-exp {
-  font-family: "Mokoto", sans-serif;
+  font-family: "Game", sans-serif;
   font-weight: normal;
   /* margin-left: 15%; */
   font-size: 2.5vw;
@@ -298,7 +306,7 @@ body {
     rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
     #D6D6E7 0 -3px 0 inset;
   box-sizing: border-box;
-  font-family: "JetBrains Mono", monospace;
+  font-family: "Game", sans-serif;
   line-height: 1;
   overflow: hidden;
   text-align: center;               /* Center the text inside the button */
@@ -310,12 +318,12 @@ body {
   white-space: nowrap;
   will-change: box-shadow, transform;
   color: #000;
+  letter-spacing: 3px;
 }
 
 /* Optional: ensure the inner divs display as block-level elements */
 .option-text{
   font-size: 2vh;   
-  font-weight: bold;
   padding-bottom: 3px;
 }
 .option-date {
@@ -389,38 +397,64 @@ body {
   transition: right 0.5s ease-in-out, opacity 0.5s ease-in-out;
   opacity: 0;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.9);
-  max-width: 45%;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  background-color: rgba(241, 241, 241, 0.9);
+  /* animation: bgSlideshow 8s infinite; */
+  background-size: cover;
+  max-width: 65%; /* Increase from 45% to whatever width you need */
+  width: 55%;
+  height: 88.7%;
+  border-left-width: 3px;
+  border-color: #000;
   z-index: 1;
+  text-align: center;
 }
 
 /* When an experience is selected, slide in the details from the right */
 .experience-container.active .experience-slide {
-  right: 10%;
+  right: 0%;
   opacity: 1;
+  padding-left: 5%;
+  padding-right: 4%;
+}
+
+.title-image {
+  max-width: 400px;  /* Adjust based on your needs */
+  height: auto;
+  margin-bottom: 0.5em;
 }
 
 /* --- Additional details styling --- */
 .name-forExp {
   font-size: 2.2vw;
-  margin-bottom: 0.5em;
+  margin-bottom: -10px; 
+  margin-top: 2vh;
+  /* margin-bottom: 0.5em; */
 }
 
 .exp-disc {
-  font-size: 1.5vw;
-  margin-bottom: 1em;
+  font-size: 1.3vw;
+  margin-bottom: .5em;
 }
 
 .exp-summary {
   font-size: 1vw;
   margin-bottom: 1em;
+  /* width: 80%; */
 }
 
 .exp-bullet {
   font-size: 1vw;
   list-style-type: disc;
   margin-left: 1em;
+  text-align: start;
+}
+
+.imgTitle{
+  display: block;
+  margin: 0 auto;
+  width: 17vw;
+  margin-top: 2vh;
+  margin-bottom: 3vh;
 }
 
 /* ------------------------------------- */

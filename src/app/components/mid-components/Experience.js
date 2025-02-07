@@ -1,10 +1,12 @@
 'use client'
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export default function Experience() {
   const experiences = [
     {
       title: "FERBESSEN",
+      imgTitle: "/title-image/Ferbessen.png",
       role: "Software Engineer | Volunteer",
       date: "February 2023 - January 2025",
       summary: `Ferbessen is about growth, connection, and mastery. It’s the pursuit of finding someone who is a master of their craft, connecting with them, and learning from them as often as needed for as long as it takes. It’s about acquiring new skills, sharing your progress, and turning your dreams into reality by starting that side hustle you’ve always envisioned. Ferbessen embodies the journey of continuous improvement, collaboration, and the courage to take action toward your goals.`,
@@ -17,6 +19,7 @@ export default function Experience() {
     },
     {
       title: "United States Marine Corps",
+      imgTitle: "/title-image/USMC.png",
       role: "Supply Chain Manager",
       date: "September 2020 – August 2022",
       summary: `As a Supply Chain Manager, I oversaw inventory control, supply chain operations, and lifecycle documentation while leading and mentoring my team. I ensured the supply chain operated efficiently, maintained accountability, and kept operations mission-ready. I provided expert recommendations to the Supply Officer and command leadership, leveraging my experience to optimize logistics and supply processes.`,
@@ -29,6 +32,7 @@ export default function Experience() {
     },
     {
       title: "United States Marine Corps",
+      imgTitle: "",
       role: "Supply Chain Specialist",
       date: "September 2019 – August 2020",
       summary: `As a Supply Chain Specialist, I managed and oversaw inventory control, whether manual or automated. I designed, planned, executed, and monitored supply chain activities to ensure supply aligned with demand, measured performance, and maintained accountability across inventory operations. I also handled critical documentation to track the lifecycle of capital assets—from acquisition to disposal—ensuring accuracy and completeness. Additionally, I advised the Supply Officer on all supply-related matters.`,
@@ -49,7 +53,7 @@ export default function Experience() {
     if (selectedIndex !== null) {
       const timer = setTimeout(() => {
         setSelectedIndex(null);
-      }, 3000); // 30000 ms = 30 seconds
+      }, 300000); // 30000 ms = 30 seconds
 
       // Clear the timer if the component unmounts or if selectedIndex changes.
       return () => clearTimeout(timer);
@@ -95,7 +99,20 @@ export default function Experience() {
       <div className="experience-slide">
         {selectedIndex !== null && (
           <>
-            <h2 className="name-forExp"><strong>{experiences[selectedIndex].title}</strong></h2>
+            <h2 className="name-forExp">
+  <strong>
+    {experiences[selectedIndex].imgTitle ? (
+      <Image className='imgTitle'
+      src={experiences[selectedIndex].imgTitle}
+      alt={experiences[selectedIndex].title}
+      width={300}   // adjust width as needed
+      height={100}  // adjust height as needed
+    />
+    ) : (
+      experiences[selectedIndex].title
+    )}
+  </strong>
+</h2>
             <p className="exp-disc">
               <strong>{experiences[selectedIndex].role}</strong> | {experiences[selectedIndex].date}
             </p>
