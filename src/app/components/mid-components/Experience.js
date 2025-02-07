@@ -1,11 +1,10 @@
 'use client'
-import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 export default function Experience() {
   const experiences = [
     {
-      title: "Ferbessen",
+      title: "FERBESSEN",
       role: "Software Engineer | Volunteer",
       date: "February 2023 - January 2025",
       summary: `Ferbessen is about growth, connection, and mastery. It’s the pursuit of finding someone who is a master of their craft, connecting with them, and learning from them as often as needed for as long as it takes. It’s about acquiring new skills, sharing your progress, and turning your dreams into reality by starting that side hustle you’ve always envisioned. Ferbessen embodies the journey of continuous improvement, collaboration, and the courage to take action toward your goals.`,
@@ -17,7 +16,7 @@ export default function Experience() {
       ]
     },
     {
-      title: "United States Marine Corps",
+      title: "SCM | USMC",
       role: "Supply Chain Manager",
       date: "September 2020 – August 2022",
       summary: `As a Supply Chain Manager, I oversaw inventory control, supply chain operations, and lifecycle documentation while leading and mentoring my team. I ensured the supply chain operated efficiently, maintained accountability, and kept operations mission-ready. I provided expert recommendations to the Supply Officer and command leadership, leveraging my experience to optimize logistics and supply processes.`,
@@ -29,7 +28,7 @@ export default function Experience() {
       ]
     },
     {
-      title: "United States Marine Corps",
+      title: "SCS | USMC",
       role: "Supply Chain Specialist",
       date: "September 2019 – August 2020",
       summary: `As a Supply Chain Specialist, I managed and oversaw inventory control, whether manual or automated. I designed, planned, executed, and monitored supply chain activities to ensure supply aligned with demand, measured performance, and maintained accountability across inventory operations. I also handled critical documentation to track the lifecycle of capital assets—from acquisition to disposal—ensuring accuracy and completeness. Additionally, I advised the Supply Officer on all supply-related matters.`,
@@ -42,65 +41,74 @@ export default function Experience() {
     }
   ];
 
-  const [selectedExperience, setSelectedExperience] = useState(null);
+  // When no experience is selected, selectedIndex is null.
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
-  // Handle experience selection
-  const handleExperienceClick = (exp) => {
-    setSelectedExperience(exp);
-  };
-
-  // Reset to center after 30 seconds
+  // useEffect to reset back to the center after 30 seconds of selection.
   useEffect(() => {
-    if (selectedExperience) {
-      const timeout = setTimeout(() => {
-        setSelectedExperience(null);
-      }, 30000);
+    if (selectedIndex !== null) {
+      const timer = setTimeout(() => {
+        setSelectedIndex(null);
+      }, 3000); // 30000 ms = 30 seconds
 
-      return () => clearTimeout(timeout);
+      // Clear the timer if the component unmounts or if selectedIndex changes.
+      return () => clearTimeout(timer);
     }
-  }, [selectedExperience]);
+  }, [selectedIndex]);
 
   return (
-    <div className="experience-container">
-      <div className='exp-line'>
+    <div className={`experience-container ${selectedIndex !== null ? 'active' : ''}`}>
+      {/* Keep your exp-line and title-exp */}
+      <div className="exp-line">
         <h1 className="title-exp">EXPERIENCE</h1>
       </div>
 
-      <div className="flex h-full">
-        {/* Experiences List */}
-        <div className={`options ${selectedExperience ? 'moveLeft' : ''}`}>
-          {experiences.map((exp, index) => (
-            <div
-              key={index}
-              className="option cursor-pointer"
-              onClick={() => handleExperienceClick(exp)}
-            >
-              <h2 className="text-xl font-bold">{exp.title}</h2>
-              <p className="text-sm">{exp.role}</p>
-              <p className="text-xs">{exp.date}</p>
-            </div>
-          ))}
-        </div>
+      {/* Experience Options (clickable buttons) */}
+      <div className="exp-options">
+        {experiences.map((exp, idx) => {
+  // Extract the years using a regex that matches four digits
+  const years = exp.date.match(/\d{4}/g);
+  const dateRange = years ? years.join('-') : exp.date;
 
-        {/* Experience Details */}
-        <div className={`content ${selectedExperience ? 'show' : ''}`}>
-          {selectedExperience && (
-            <div className="p-8">
-              <h2 className="name-forExp"><strong>{selectedExperience.title}</strong></h2>
-              <p className="exp-disc">
-                <strong>{selectedExperience.role}</strong> | {selectedExperience.date}
-              </p>
-              
-              <p className="exp-summary">{selectedExperience.summary}</p>
-              
-              <ul className="exp-bullet">
-                {selectedExperience.description.map((point, index) => (
-                  <li key={index}>{point}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
+  // Determine the button text based on the role.
+  // If the role is Supply Chain Manager or Specialist, show the abbreviations;
+  // Otherwise, use the title.
+  const optionText =
+    exp.role === "Supply Chain Manager"
+      ? "SCM | USMC"
+      : exp.role === "Supply Chain Specialist"
+      ? "SCS | USMC"
+      : exp.title.toUpperCase();
+
+  return (
+    <button
+      key={idx}
+      onClick={() => setSelectedIndex(idx)}
+      className="exp-option"
+    >
+      <div className="option-text">{optionText}</div>
+      <div className="option-date">{dateRange}</div>
+    </button>
+  );
+})}
+      </div>
+
+      {/* Experience Details */}
+      <div className="experience-slide">
+        {selectedIndex !== null && (
+          <>
+            <h2 className="name-forExp"><strong>{experiences[selectedIndex].title}</strong></h2>
+            <p className="exp-disc">
+              <strong>{experiences[selectedIndex].role}</strong> | {experiences[selectedIndex].date}
+            </p>
+            <p className="exp-summary">{experiences[selectedIndex].summary}</p>
+            <ul className="exp-bullet">
+              {experiences[selectedIndex].description.map((point, index) => (
+                <li key={index}>{point}</li>
+              ))}
+            </ul>
+          </>
+        )}
       </div>
     </div>
   );
