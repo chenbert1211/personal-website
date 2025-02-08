@@ -1,35 +1,35 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 
-// Your real slides array (using picsum.photos for demo images)
+// Your real slides array (using local images)
 const slides = [
   {
     id: 1,
     title: "University Of Houston",
     details:
       "Sep/2022 - May/2026 | Bachelor’s in Computer Science (in pursuit)",
-    image: "https://picsum.photos/800/400?random=1",
+    image: "/edu-image/uh.jpg",
   },
   {
     id: 2,
     title: "Fullstack Academy Web Development Bootcamp",
     details:
       "May/2022 - Sep/2022 | Software Engineering Certificate",
-    image: "https://picsum.photos/800/400?random=2",
+    image: "/edu-image/FSA Cert.jpg",
   },
   {
     id: 3,
     title: "SalesForce",
     details:
       "Nov/2021 - Feb/2022 | Salesforce Certified Administrator (SCA)",
-    image: "https://picsum.photos/800/400?random=3",
+    image: "/edu-image/sf.jpg",
   },
   {
     id: 4,
     title: "Brooklyn Technical High School",
     details:
       "Sep/2015 - Jun/2018 | High School Diploma",
-    image: "https://picsum.photos/800/400?random=4",
+    image: "/edu-image/bt.jpg",
   },
 ];
 
@@ -44,10 +44,8 @@ export default function Education() {
   // This flag lets us disable CSS transition when “jumping.”
   const [transitionEnabled, setTransitionEnabled] = useState(true);
 
-  // Reference to the carousel track element.
+  // References for the track and container.
   const trackRef = useRef(null);
-
-  // Get the container width so that we can center the active slide.
   const containerRef = useRef(null);
   const [containerWidth, setContainerWidth] = useState(0);
   useEffect(() => {
@@ -63,13 +61,13 @@ export default function Education() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // SCALE UP: Multiply the dimensions by 6.
-  const slideWidth = 1300;       // now 1800px
-  const slideMargin = 20;       // now 120px total horizontal margin (i.e. 60px per side)
-  const totalSlideWidth = 1320;
+  // Slide dimensions
+  const slideWidth = 1300;      // your slide width in pixels
+  const slideMargin = 20;       // total horizontal margin (left+right)
+  const totalSlideWidth = 1320; // should roughly equal slideWidth + slideMargin
   // Calculate an offset so that the active slide is centered.
   const centerOffset = containerWidth ? containerWidth / 2 - slideWidth / 2 : 0;
-  // The track’s transform value moves the slides so that the active slide is centered.
+  // The track's transform value moves the slides so that the active slide is centered.
   const trackTransform = `translateX(${centerOffset - currentIndex * totalSlideWidth}px)`;
 
   // Build the extended slides array:
@@ -82,11 +80,34 @@ export default function Education() {
     slides[1],
   ];
 
+  // Auto-slide functionality:
+  // We'll use a ref to hold the auto-slide interval so that we can clear and reset it.
+  const autoSlideInterval = useRef(null);
+
+  const resetAutoSlide = () => {
+    if (autoSlideInterval.current) {
+      clearInterval(autoSlideInterval.current);
+    }
+    autoSlideInterval.current = setInterval(() => {
+      setCurrentIndex((prevIndex) => prevIndex + 1);
+    }, 10000); // 10 seconds
+  };
+
+  // On mount, start the auto-slide timer.
+  useEffect(() => {
+    resetAutoSlide();
+    return () => {
+      if (autoSlideInterval.current) {
+        clearInterval(autoSlideInterval.current);
+      }
+    };
+  }, []);
+
   // When the transition ends, check if we're on a clone.
   // If so, force a jump to the corresponding real slide without any visible flicker.
   const onTransitionEnd = () => {
     if (currentIndex < realStartIndex) {
-      // e.g. if currentIndex becomes 1 (a clone), jump to currentIndex = 1 + n.
+      // For example, if currentIndex becomes 1 (a clone), jump to currentIndex = 1 + n.
       setTransitionEnabled(false);
       setCurrentIndex(currentIndex + n);
       if (trackRef.current) {
@@ -94,7 +115,7 @@ export default function Education() {
       }
       setTransitionEnabled(true);
     } else if (currentIndex > realEndIndex) {
-      // e.g. if currentIndex becomes n+2 (a clone), jump to currentIndex = n+2 - n.
+      // For example, if currentIndex becomes n+2 (a clone), jump to currentIndex = n+2 - n.
       setTransitionEnabled(false);
       setCurrentIndex(currentIndex - n);
       if (trackRef.current) {
@@ -105,15 +126,18 @@ export default function Education() {
   };
 
   // When clicking a slide, if it is not already active, move to that slide.
+  // Also reset the auto-slide timer.
   const handleSlideClick = (index) => {
     if (index === currentIndex) return;
     setCurrentIndex(index);
+    resetAutoSlide();
   };
 
   // Clicking a navigation dot should move to the corresponding real slide.
   // Real slide i is located at extended index (i + 2).
   const goToSlide = (dotIndex) => {
     setCurrentIndex(dotIndex + 2);
+    resetAutoSlide();
   };
 
   // Determine which dot is active.
@@ -124,14 +148,13 @@ export default function Education() {
   return (
     <div className="education-section">
       <h1 className="title">EDUCATION</h1>
-      {/* Adjust the container width if necessary. In this example, we set it to 1800px. */}
       <div className="carousel-container" ref={containerRef}>
         <div
           ref={trackRef}
           className="carousel-track"
           style={{
             transform: trackTransform,
-            transition: transitionEnabled ? "transform 0.5s ease" : "none",
+            transition: transitionEnabled ? "transform 1.5s ease" : "none",
           }}
           onTransitionEnd={onTransitionEnd}
         >

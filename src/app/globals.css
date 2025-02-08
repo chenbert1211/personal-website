@@ -467,7 +467,10 @@ body {
   background-color: #ffffff;
   color: #000;
   text-align: center;
-  padding: 40px 20px;
+}
+
+.education-section .slide-info{
+  text-align: start;
 }
 
 .title {
@@ -479,10 +482,8 @@ body {
    You can use width: 1800px or a responsive width as needed. */
 .carousel-container {
   position: relative;
-  /* width: 2000px;  */
-  margin: 0 auto;
-  /* overflow: hidden; */
-  /* background-color: #000; */
+  overflow: hidden;
+  margin-bottom: 10%;
 }
 
 /* The track that holds all slides in a horizontal row */
@@ -496,10 +497,12 @@ body {
 .slide {
   position: relative;
   min-width: 1300px;
-  margin: 0 10px;   
+  margin: 0 6px;   
+  height: 661px;
   transition: transform 1.5s ease, opacity 1.5s ease;
   opacity: 0.5;
   cursor: pointer;
+  overflow: hidden;
 }
 
 /* Active (focused) slide */
@@ -511,6 +514,19 @@ body {
 /* Non-active slides are “unfocused” */
 .slide:not(.active) {
   transform: scale(1);
+}
+
+.slide::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  /* Adjust the height as needed – 30% of the slide height is a common choice */
+  height: 16%;
+  /* Fades from a dark semi-transparent color at the bottom to transparent at the top */
+  background: linear-gradient(to top, rgba(94, 94, 94, 0.4), transparent);
+  pointer-events: none;  /* So that the overlay does not block clicks */
 }
 
 /* Slide image styling */
@@ -527,18 +543,25 @@ body {
   left: 20px;
   color: #fff;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+  font-size: 1.vh;
+  font-weight: bold;
+  z-index: 1;
+}
+
+.slide-info h2  {
+  font-size: 2.3vh;
 }
 
 /* Navigation dots container */
 .dots {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 /* Each navigation dot */
 .dot {
   display: inline-block;
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   background-color: #ccc;
   border-radius: 50%;
   margin: 0 5px;
