@@ -242,7 +242,9 @@ body {
 .experience-container {
   margin: auto;
   height: 96vh;
+  margin-top: 10px;
   background-color: #ffffff;
+  /* background-image: url('/background/office.jpg'); */
   background-position: center;
   background-size: cover;
   color: rgb(0, 0, 0);
@@ -456,6 +458,101 @@ body {
   margin-top: 2vh;
   margin-bottom: 3vh;
 }
+
+/* ------------------------------------- */
+/* Education Section */
+
+/* Overall education section styling */
+.education-section {
+  background-color: #ffffff;
+  color: #000;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* Adjust the carousel container width to accommodate the larger slides.
+   You can use width: 1800px or a responsive width as needed. */
+.carousel-container {
+  position: relative;
+  /* width: 2000px;  */
+  margin: 0 auto;
+  /* overflow: hidden; */
+  /* background-color: #000; */
+}
+
+/* The track that holds all slides in a horizontal row */
+.carousel-track {
+  display: flex;
+  will-change: transform;
+  /* padding-left: 100%; */
+}
+
+/* Each slide */
+.slide {
+  position: relative;
+  min-width: 1300px;
+  margin: 0 10px;   
+  transition: transform 1.5s ease, opacity 1.5s ease;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+/* Active (focused) slide */
+.slide.active {
+  transform: scale(1.0);
+  opacity: 1;
+}
+
+/* Non-active slides are “unfocused” */
+.slide:not(.active) {
+  transform: scale(1);
+}
+
+/* Slide image styling */
+.slide img {
+  width: 100%;
+  /* padding-left: -100px; */
+  display: block;
+}
+
+/* Slide info overlay */
+.slide-info {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: #fff;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Navigation dots container */
+.dots {
+  margin-top: 20px;
+}
+
+/* Each navigation dot */
+.dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Active dot styling */
+.dot.active {
+  background-color: #333;
+}
+
+
+
 
 /* ------------------------------------- */
 /* ------------------------------------- */
