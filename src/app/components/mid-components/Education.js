@@ -43,6 +43,21 @@ export default function Education() {
   const [currentIndex, setCurrentIndex] = useState(realStartIndex);
   // This flag lets us disable CSS transition when “jumping.”
   const [transitionEnabled, setTransitionEnabled] = useState(true);
+  // State to track if the active slide is focused (modal open)
+  const [isFocused, setIsFocused] = useState(false);
+
+  // Disable body scrolling when focused.
+  useEffect(() => {
+    if (isFocused) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    // Cleanup in case the component unmounts
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isFocused]);
 
   // References for the track and container.
   const trackRef = useRef(null);
@@ -83,17 +98,19 @@ export default function Education() {
   // Auto-slide functionality:
   // We'll use a ref to hold the auto-slide interval so that we can clear and reset it.
   const autoSlideInterval = useRef(null);
-
   const resetAutoSlide = () => {
     if (autoSlideInterval.current) {
       clearInterval(autoSlideInterval.current);
     }
-    autoSlideInterval.current = setInterval(() => {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-    }, 10000); // 10 seconds
+    // Only start auto-sliding when not focused.
+    if (!isFocused) {
+      autoSlideInterval.current = setInterval(() => {
+        setCurrentIndex((prevIndex) => prevIndex + 1);
+      }, 10000); // 10 seconds
+    }
   };
 
-  // On mount, start the auto-slide timer.
+  // On mount and whenever isFocused changes, start or clear the auto-slide timer.
   useEffect(() => {
     resetAutoSlide();
     return () => {
@@ -101,13 +118,12 @@ export default function Education() {
         clearInterval(autoSlideInterval.current);
       }
     };
-  }, []);
+  }, [isFocused]);
 
   // When the transition ends, check if we're on a clone.
   // If so, force a jump to the corresponding real slide without any visible flicker.
   const onTransitionEnd = () => {
     if (currentIndex < realStartIndex) {
-      // For example, if currentIndex becomes 1 (a clone), jump to currentIndex = 1 + n.
       setTransitionEnabled(false);
       setCurrentIndex(currentIndex + n);
       if (trackRef.current) {
@@ -115,7 +131,6 @@ export default function Education() {
       }
       setTransitionEnabled(true);
     } else if (currentIndex > realEndIndex) {
-      // For example, if currentIndex becomes n+2 (a clone), jump to currentIndex = n+2 - n.
       setTransitionEnabled(false);
       setCurrentIndex(currentIndex - n);
       if (trackRef.current) {
@@ -125,10 +140,18 @@ export default function Education() {
     }
   };
 
-  // When clicking a slide, if it is not already active, move to that slide.
-  // Also reset the auto-slide timer.
+  // When clicking a slide, check if it's the active (center) slide.
+  // If it is, open the focus modal; otherwise, change the slide and reset auto-slide.
   const handleSlideClick = (index) => {
-    if (index === currentIndex) return;
+    if (index === currentIndex) {
+      setIsFocused(true);
+      // Pause auto-slide while focused.
+      if (autoSlideInterval.current) {
+        clearInterval(autoSlideInterval.current);
+        autoSlideInterval.current = null;
+      }
+      return;
+    }
     setCurrentIndex(index);
     resetAutoSlide();
   };
@@ -144,6 +167,20 @@ export default function Education() {
   // The active dot corresponds to the real slide index:
   // real slide index = (currentIndex - 2), adjusted modulo n.
   let activeDotIndex = (currentIndex - 2 + n) % n;
+
+  // When clicking outside the focused slide (the overlay), unfocus it.
+  const handleOverlayClick = () => {
+    setIsFocused(false);
+    resetAutoSlide();
+  };
+
+  // Stop propagation when clicking on the focused slide so it doesn't trigger overlay click.
+  const handleFocusedClick = (e) => {
+    e.stopPropagation();
+  };
+
+  // Compute the real slide index from the extended current index.
+  const realSlideIndex = (currentIndex - 2 + n) % n;
 
   return (
     <div className="education-section">
@@ -182,6 +219,25 @@ export default function Education() {
           ))}
         </div>
       </div>
+
+      {/* Focus Modal Overlay */}
+      {isFocused && (
+        <div className="focused-overlay" onClick={handleOverlayClick}>
+          <div className="focused-slide" onClick={handleFocusedClick}>
+    
+            <div className="focused-image">
+              <img
+                src={slides[realSlideIndex].image}
+                alt={slides[realSlideIndex].title}
+              />
+            </div>
+            <div className="focused-text">
+              <h2>{slides[realSlideIndex].title}</h2>
+              <p>{slides[realSlideIndex].details}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
