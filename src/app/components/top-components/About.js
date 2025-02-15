@@ -150,7 +150,7 @@ const About = () => {
         >
           {!isNormal ? (
             <>
-              <div className="title">
+              <div className="abt-title">
                 <h1>EPISODE XXVI:</h1>
                 <h1>A NEW HOPE IN CODE</h1>
               </div>
@@ -184,7 +184,7 @@ const About = () => {
             </>
           ) : (
             <>
-              <div className="title">
+              <div className="aboutnorm-title">
                 <h1>The Human Behind the Screen</h1>
               </div>
               <p>
@@ -195,12 +195,13 @@ const About = () => {
                 The reason I decided to pursue Computer Science is in hopes to help
                 people and advance humanity.
               </p>
+              <p className="verse">~ Psalms 136</p>
             </>
           )}
         </div>
       </section>
       {/* Control Buttons positioned on the right of the crawl text */}
-      <div className="buttons">
+      <div className="abt-buttons">
         {isNormal ? (
           // In normal mode, the play/pause button becomes a replay button.
           <IconButton onClick={replayAnimation}>
