@@ -185,7 +185,7 @@ const About = () => {
           ) : (
             <>
               <div className="aboutnorm-title">
-                <h1>The Human Behind the Screen</h1>
+                <h1>Bert The Padawan</h1>
               </div>
               <p>
                 I enjoy spending time with family, outdoor activities, and working
