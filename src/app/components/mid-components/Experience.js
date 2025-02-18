@@ -113,6 +113,7 @@ export default function Experience() {
     )}
   </strong>
 </h2>
+        <div className='exp-all-disc'>
             <p className="exp-disc">
               <strong>{experiences[selectedIndex].role}</strong> | {experiences[selectedIndex].date}
             </p>
@@ -122,6 +123,7 @@ export default function Experience() {
                 <li key={index}>{point}</li>
               ))}
             </ul>
+            </div>
           </>
         )}
       </div>
