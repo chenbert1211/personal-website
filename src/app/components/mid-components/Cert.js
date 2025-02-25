@@ -5,9 +5,9 @@ import React, { useState, useEffect } from "react";
 const certSlides = [
   {
     id: 1,
-    title: "Certification One",
+    title: "Combat Training Certificate",
     details: "Details for Certification One",
-    image: "/cert-image/cert1.jpg",
+    image: ["/certificate/combat/combat.jpg"]
   },
   {
     id: 2,
