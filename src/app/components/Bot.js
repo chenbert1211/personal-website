@@ -4,10 +4,9 @@ export default function Bot() {
         <div className="footer-content">
           {/* About Section */}
           <div className="footer-section about">
-            <h2>Company Name</h2>
+            <h2>Bert's Website</h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-              consequat consequat enim, non auctor massa ultrices non.
+              Not too sure what to write here but it sure does make my website look professional!
             </p>
           </div>
           {/* Quick Links Section */}

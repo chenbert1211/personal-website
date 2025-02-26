@@ -789,7 +789,7 @@ body {
   margin: 0 6px;
   height: 661px;
   transition: transform 1.5s ease, opacity 1.5s ease;
-  opacity: 0.5;
+  opacity: 0.9;
   cursor: pointer;
   overflow: hidden;
 }
@@ -811,7 +811,7 @@ body {
   left: 0;
   width: 100%;
   height: 16%;
-  background: linear-gradient(to top, rgba(94, 94, 94, 0.4), transparent);
+  /* background: linear-gradient(to top, rgba(94, 94, 94, 0.4), transparent); */
   pointer-events: none;
 }
 
@@ -918,7 +918,7 @@ body {
   background-color: #ffffff;
   color: #000;
   text-align: center;
-  overflow: hidden; /* Ensure no scrollbars appear from the carousel */
+  overflow: hidden;
 }
 
 .cert-title {
@@ -926,7 +926,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* Cert Carousel Container */
 .cert-carousel-container {
   position: relative;
   overflow: hidden;
@@ -934,34 +933,28 @@ body {
   margin-bottom: 5%;
 }
 
-/* Cert Carousel Track */
-/* This track contains two sets of slides and is animated to continuously scroll left.
-   The keyframes animation moves it from 0 to -scrollDistance (1340px in our example). */
 .cert-carousel-track {
   display: flex;
-  /* The animation duration controls the speed; adjust as desired. */
-  animation: scroll 30s linear infinite;
+  animation: scroll linear infinite;
+  will-change: transform; /* Improves performance */
 }
 
-/* Pause the scrolling when hovering over the container */
 .cert-carousel-container:hover .cert-carousel-track {
   animation-play-state: paused;
 }
 
-/* Each Cert Slide (1/4 size) */
 .cert-slide {
   position: relative;
   overflow: hidden;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  flex-shrink: 0; /* Prevents slides from shrinking */
 }
 
-/* On hover, add a grey transparent overlay */
 .cert-slide:hover {
   background-color: rgba(128, 128, 128, 0.5);
 }
 
-/* Cert Slide Image Styling */
 .cert-slide img {
   width: 100%;
   height: 100%;
@@ -969,8 +962,6 @@ body {
   display: block;
 }
 
-/* Cert Slide Info (text overlay) */
-/* Initially hidden; it fades in on hover */
 .cert-slide-info {
   position: absolute;
   top: 0;
@@ -990,19 +981,16 @@ body {
   opacity: 1;
 }
 
-/* Keyframes for Continuous Scrolling */
-/* The animation scrolls the track from 0 to -1340px (i.e. one full set of slides).
-   Adjust the 1340px if you have a different number of slides or sizes. */
 @keyframes scroll {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-1340px);
+    transform: translateX(calc(-100% / 4)); /* Move half the total width */
   }
 }
 
-/* Cert Focus Modal Overlay */
+/* Rest of your modal CSS remains unchanged */
 .cert-focused-overlay {
   position: fixed;
   top: 0;
@@ -1016,8 +1004,6 @@ body {
   z-index: 9999;
 }
 
-/* Cert Focused Slide in Modal */
-/* This displays the certification at full (normal) size with text on the left and image on the right */
 .cert-focused-slide {
   display: flex;
   flex-direction: row;
@@ -1029,7 +1015,6 @@ body {
   border-radius: 8px;
 }
 
-/* Cert Focused Text Area (left side) */
 .cert-focused-text {
   flex: 1;
   padding: 20px;
@@ -1046,8 +1031,6 @@ body {
   font-size: 1.2rem;
 }
 
-/* Cert Focused Image Area (right side) */
-/* Adjust these properties to change the size of the image in the modal if needed */
 .cert-focused-image {
   flex: 1;
   overflow: hidden;
