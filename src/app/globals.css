@@ -931,6 +931,7 @@ body {
   overflow: hidden;
   width: 100%;
   margin-bottom: 5%;
+  
 }
 
 .cert-carousel-track {
@@ -960,6 +961,7 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
+  
 }
 
 .cert-slide-info {
@@ -974,11 +976,12 @@ body {
   align-items: center;
   opacity: 0;
   transition: opacity 0.3s ease;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+  text-shadow: 1px 1px 4px rgba(86, 86, 86, 0.7);
 }
 
 .cert-slide:hover .cert-slide-info {
   opacity: 1;
+  background-color: rgba(30, 30, 30, 0.5);
 }
 
 @keyframes scroll {
@@ -1139,13 +1142,14 @@ body {
 }
 
 .footer-content {
-  display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
-  max-width: 1200px;
+  max-width: 50%;
   margin: 0 auto;
   padding: 0 20px;
+  /* background-color: palegoldenrod; */
   color: rgba(0, 0, 0, 0.56);
+  text-align: center;
+  margin-top: 20px;
 }
 
 .footer-section {
@@ -1195,4 +1199,10 @@ body {
   border-top: 1px solid #444;
   padding-top: 10px;
   color: rgba(0, 0, 0, 0.56);
+}
+
+.footer-bundle{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px
 }

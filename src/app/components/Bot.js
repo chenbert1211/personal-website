@@ -4,12 +4,15 @@ export default function Bot() {
         <div className="footer-content">
           {/* About Section */}
           <div className="footer-section about">
-            <h2>Bert's Website</h2>
             <p>
               Not too sure what to write here but it sure does make my website look professional!
             </p>
+            <p>
+              I really enjoy working on cool things and hopefully I can work for Elon one day!
+            </p>
           </div>
           {/* Quick Links Section */}
+          <div className="footer-bundle">
           <div className="footer-section links">
             <h3>Quick Links</h3>
             <ul>
@@ -35,9 +38,10 @@ export default function Bot() {
             <p>Email: info@company.com</p>
             <p>Phone: (123) 456-7890</p>
           </div>
+          </div>
         </div>
         <div className="footer-bottom">
-          &copy; {new Date().getFullYear()} Company Name. All Rights Reserved.
+          ~Psalms 136:1 Give thanks to the Lord, for he is good. His love endures forever.
         </div>
       </footer>
     );
